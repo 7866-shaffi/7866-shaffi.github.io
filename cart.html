@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Cart - EcoFarm</title>
+<link rel="stylesheet" href="styles.css">
+
+<style>
+.cart-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    background: #fff;
+    padding: 12px;
+    border-radius: 10px;
+    margin-bottom: 12px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+.cart-item img {
+    width: 80px;
+    border-radius: 8px;
+}
+.cart-name {
+    font-size: 18px;
+    font-weight: bold;
+}
+.cart-controls {
+    margin-left: auto;
+    text-align: right;
+}
+.qty-btn {
+    background: #3b7a57;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    font-size: 18px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.remove-btn {
+    background: red;
+    color: white;
+    border: none;
+    padding: 6px 10px;
+    margin-top: 6px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+</style>
+
+</head>
+<body>
+
+<header class="header">
+  <h2>EcoFarm</h2>
+  <nav class="nav">
+    <a href="index.html">Home</a>
+    <a href="products.html">Products</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+    <a href="cart.html">Cart 
+        <span id="cart-count" style="background:#fff;color:#333;padding:3px 7px;border-radius:12px;margin-left:6px">0</span>
+    </a>
+  </nav>
+</header>
+
+<main class="container">
+  <h2 class="section-title">Your Cart</h2>
+
+  <div id="cart-items"></div>
+
+  <div style="max-width:600px;margin:12px auto;text-align:right">
+    <div style="font-weight:800;margin-bottom:8px">
+        Total: <span id="cart-total">₹ 0</span>
+    </div>
+
+    <button class="btn" onclick="clearCart()">Clear Cart</button>
+
+    <button class="btn" 
+        style="background:var(--primary);margin-left:8px" 
+        onclick="alert('Checkout coming soon!')">
+      Checkout
+    </button>
+  </div>
+</main>
+
+<footer class="footer">
+  <p>Contact Us • Email: contact@ecofarm.com • Phone: +91-9876543210</p>
+  <p>© 2025 EcoFarm</p>
+</footer>
+
+<script src="app.js"></script>
+
+<script>
+// Display Cart Items
+function loadCart() {
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    const container = document.getElementById("cart-items");
+    container.innerHTML = "";
+    let total = 0;
+
+    cart.forEach((item, index) => {
+        total += item.price * item.quantity;
+
+        container.innerHTML += `
+            <div class="cart-item">
+                <img src="${item.image}">
+                <div>
+                    <div class="cart-name">${item.name}</div>
+                    <div>₹${item.price} × ${item.quantity}</div>
+                </div>
+
+                <div class="cart-controls">
+                    <button class="qty-btn" onclick="changeQty(${index}, 1)">+</button>
+                    <button class="qty-btn" onclick="changeQty(${index}, -1)">−</button>
+                    <br>
+                    <button class="remove-btn" onclick="removeItem(${index})">Remove</button>
+                </div>
+            </div>
+        `;
+    });
+
+    document.getElementById("cart-total").innerText = "₹ " + total;
+}
+
+// Change Quantity
+function changeQty(index, amount) {
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    cart[index].quantity += amount;
+
+    if (cart[index].quantity <= 0) {
+        cart.splice(index, 1);
+    }
+
+    localStorage.setItem("cart", JSON.stringify(cart));
+    updateCartCount();
+    loadCart();
+}
+
+// Remove Item
+function removeItem(index) {
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    cart.splice(index, 1);
+    localStorage.setItem("cart", JSON.stringify(cart));
+    updateCartCount();
+    loadCart();
+}
+
+// Clear Cart
+function clearCart() {
+    localStorage.removeItem("cart");
+    updateCartCount();
+    loadCart();
+}
+
+// Load Cart on Page Open
+loadCart();
+updateCartCount();
+</script>
+
+</body>
+</html>

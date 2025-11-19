@@ -1,0 +1,23 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Admin - EcoFarm</title><link rel="stylesheet" href="styles.css"></head>
+<body><header class="header"><h2>EcoFarm - Admin</h2><nav class="nav"><a href="index.html">Home</a><a href="products.html">Products</a></nav></header>
+
+<main class="container">
+  <h2 class="section-title">Admin - Add Product</h2>
+  <div class="card" style="max-width:700px;margin:12px auto">
+    <form id="adm-form" onsubmit="adminAddProduct();return false;">
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <input id="adm-title" placeholder="Product title" required style="padding:10px;border-radius:6px;border:1px solid #ddd">
+        <input id="adm-price" placeholder="Price (number)" required type="number" style="padding:10px;border-radius:6px;border:1px solid #ddd">
+        <input id="adm-unit" placeholder="Unit (kg/piece)" style="padding:10px;border-radius:6px;border:1px solid #ddd">
+        <input id="adm-image" placeholder="Image path (e.g. images/new.jpg)" style="padding:10px;border-radius:6px;border:1px solid #ddd">
+        <textarea id="adm-desc" placeholder="Description" style="padding:10px;border-radius:6px;border:1px solid #ddd"></textarea>
+        <button class="btn" type="submit">Add Product</button>
+      </div>
+    </form>
+  </div>
+  <h3 style="text-align:center">Preview Products</h3>
+  <div id="products-grid" class="product-grid"></div>
+</main>
+
+<footer class="footer"><p>© 2025 EcoFarm</p></footer>
+<script src="app.js"></script></body></html>
