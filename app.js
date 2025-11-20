@@ -2,19 +2,19 @@
 const products = [
     {
         name: "Organic Rice",
-        price: 40,
+        price: 45,
         unit: "₹ / Kg",
         image: "images/rice.jpg"
     },
     {
         name: "Organic Tomato",
-        price: 8,
+        price: 10,
         unit: "₹ / Kg",
         image: "images/tomato.jpg"
     },
     {
         name: "Organic Potato",
-        price: 10,
+        price: 15,
         unit: "₹ / Kg",
         image: "images/potato.jpg"
     }
